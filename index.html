@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Academy-task2</title>
+    <link
+      type="image/x-icon"
+      rel="shortcut icon"
+      href="https://faviconka.ru/ico/1/faviconka.ru_1_101236.ico"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/1.0.0/modern-normalize.min.css"
+      integrity="sha512-Zx6MlUMKSVJoQ+83OwhdILe8cSEsCzfqThJd7J/VA2UrK6Ctj85p+xzqfyuNXE5B1k25uUdmJ2OzItbBy9GHAQ=="
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <div class="container bg-light min-vh-100 h-100 py-5">
+      <div class="card" id="upload-group">
+        <div class="input-group">
+          <div class="custom-file">
+            <input
+              type="file"
+              class="custom-file__input"
+              id="upload"
+              aria-describedby="inputGroupFile"
+            />
+            <label class="custom-file__label" for="upload">Выберите файл</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" id="form-container">
+        <div
+          class="
+            card__header
+            d-flex
+            flex-sm-row flex-column-reverse
+            justify-content-between
+            align-items-center
+          "
+        >
+          <h1 id="filename" class="mt-sm-1 mt-3"></h1>
+
+          <div class="reset">
+            <button class="btn btn-danger hide" id="resetBtn">Сброс</button>
+          </div>
+        </div>
+
+        <form class="card__body" id="form"></form>
+      </div>
+    </div>
+  </body>
+</html>
