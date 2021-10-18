@@ -1,0 +1,39 @@
+body {
+  background-color: rgb(231, 229, 229);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+
+  white-space: nowrap;
+  clip-path: inset(100%);
+  clip: rect(0 0 0 0);
+  overflow: hidden;
+}
+
+.custom-file-input {
+  cursor: pointer;
+}
+
+.card {
+  margin: 20px auto;
+}
+
+.custom-file-input:lang(en) ~ .custom-file-label::after {
+  content: 'Загрузить';
+}
+
+@media (min-width: 991.98px) {
+  #upload-group {
+    max-width: 65%;
+  }
+
+  .card {
+    max-width: 80%;
+  }
+}
