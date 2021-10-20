@@ -1,20 +1,42 @@
-import refs from './refs';
+import refs from './refs.js';
+import markupForm from './markupForm.js';
 
-const { inputUploadEl } = refs;
+const { inputUploadEl, inputUploadGr, formContainerRef, resetBtnEl } = refs;
 
 inputUploadEl.addEventListener('change', readFile);
 
 function readFile() {
   const currentFile = inputUploadEl.files[0];
 
-  let reader = new FileReader();
-  reader.readAsText(currentFile);
+  let uploadedFile = new FileReader();
+  uploadedFile.readAsText(currentFile);
 
-  reader.onload = function () {
-    parseFile(reader.result);
+  uploadedFile.onload = function () {
+    parseJSON(uploadedFile.result);
+    // console.log(uploadedFile.result);
   };
 
-  reader.onerror = function () {
-    console.log(reader.error);
+  uploadedFile.onerror = function () {
+    console.log(uploadedFile.error);
   };
 }
+
+function parseJSON(data) {
+  try {
+    const result = JSON.parse(data);
+
+    inputUploadGr.classList.add('visually-hidden');
+    formContainerRef.classList.remove('visually-hidden');
+    markupForm(result);
+  } catch (error) {
+    inputUploadGr.insertAdjacentHTML(
+      'afterend',
+      '<div class="alert alert-danger">Загрузите файл в формате JSON</div>',
+    );
+  }
+}
+
+resetBtnEl.addEventListener('click', () => {
+  inputUploadGr.classList.remove('visually-hidden');
+  formContainerRef.classList.add('visually-hidden');
+});

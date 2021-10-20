@@ -26,7 +26,7 @@
   </head>
   <body>
     <div class="container bg-light min-vh-100 h-100 py-5">
-      <!-- <div class="card" id="upload-group">
+      <div class="card" id="upload-group">
         <div class="input-group px-3 py-3">
           <div class="custom-file">
             <input
@@ -38,9 +38,9 @@
             <label class="custom-file-label" for="upload">Выберите файл</label>
           </div>
         </div>
-      </div> -->
+      </div>
 
-      <div class="card" id="form-container">
+      <div class="card visually-hidden" id="form-container">
         <div
           class="
             card-header
@@ -52,15 +52,13 @@
         >
           <h1 id="filename" class="mt-sm-1 mt-3"></h1>
 
-          <div class="reset">
-            <button class="btn btn-danger" id="reset-btn">Сброс</button>
-          </div>
+          <button class="btn btn-danger" id="reset-btn">Сброс</button>
         </div>
 
         <form class="card-body" id="form"></form>
       </div>
     </div>
-    <script src="./js/index.js"></script>
+    <script src="./js/index.js" type="module"></script>
     <script
       src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
       integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"

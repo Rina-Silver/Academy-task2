@@ -3,7 +3,7 @@ body {
 }
 
 .visually-hidden {
-  position: absolute;
+  /* position: absolute;
   width: 1px;
   height: 1px;
   margin: -1px;
@@ -13,7 +13,8 @@ body {
   white-space: nowrap;
   clip-path: inset(100%);
   clip: rect(0 0 0 0);
-  overflow: hidden;
+  overflow: hidden; */
+  display: none;
 }
 
 .custom-file-input {
@@ -24,12 +25,18 @@ body {
   margin: 20px auto;
 }
 
+.alert {
+  margin: 0 auto;
+  text-align: center;
+}
+
 .custom-file-input:lang(en) ~ .custom-file-label::after {
   content: 'Загрузить';
 }
 
 @media (min-width: 991.98px) {
-  #upload-group {
+  #upload-group,
+  #upload-group ~ .alert {
     max-width: 65%;
   }
 
