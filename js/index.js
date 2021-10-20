@@ -1,5 +1,9 @@
 import refs from './refs.js';
-import markupForm from './markupForm.js';
+import funcs from './markupForm.js';
+
+const { markupForm, inputCheckByMask } = funcs;
+
+window.inputCheckByMask = inputCheckByMask;
 
 const { inputUploadEl, inputUploadGr, formContainerRef, resetBtnEl, formEl } =
   refs;

@@ -1,4 +1,5 @@
 import refs from './refs.js';
+
 const { fileNameRef, formContainerRef, formEl } = refs;
 
 function markupForm(data) {
@@ -10,9 +11,13 @@ function markupForm(data) {
   if (data.fields) {
     markupFields(data.fields);
   }
+  //   if (data.references) {
+  //     markupFields(data.references);
+  //   }
 }
 
 function typeChecked({ label, input }) {
+  let maskedTypeText = false;
   let attr = [];
   if (input.required) {
     attr.push('required');
@@ -22,6 +27,8 @@ function typeChecked({ label, input }) {
   }
   if (input.mask) {
     attr.push(`placeholder="${input.mask}"`);
+    attr.push(`data-mask="${input.mask}"`);
+    maskedTypeText = true;
   }
   if (input.placeholder) {
     attr.push(`placeholder="${input.placeholder}"`);
@@ -63,11 +70,19 @@ function typeChecked({ label, input }) {
       </div>`;
 
       break;
+
     case 'number':
-      markup = `<div class="form-floating mb-3">
-        <label>${label}
-        <input type="text" class="form-control" ${attr}></label>
-      </div>`;
+      if (maskedTypeText) {
+        markup = `<div class="form-floating mb-3">
+          <label>${label}
+          <input type="text" class="form-control" ${attr} oninput="inputCheckByMask(this)"></label>
+        </div>`;
+      } else {
+        markup = `<div class="form-floating mb-3">
+          <label>${label}
+          <input type="number" min="0" class="form-control" ${attr} value="1"></label>
+        </div>`;
+      }
       break;
     case 'color':
       let colorSet = [];
@@ -85,9 +100,59 @@ function typeChecked({ label, input }) {
         </div></label>
       </div>`;
       break;
+    case 'technology':
+      let techSet = [];
+
+      input.technologies.forEach(technology => {
+        techSet.push(`<div class="form-check form-check-inline">
+        <input type="checkbox" value="${technology}" id="${technology}" name="selectcheckbox" class="form-check-input">
+        <label for="${technology}" class="form-check-label">${technology}</label>
+        </div>`);
+      });
+      markup = `<div class="form-floating mb-3">
+        <label>${label}
+        <div class="custom-field">
+        ${techSet.join('')}
+        </div></label>
+      </div>`;
+      break;
   }
 
   return markup;
+}
+
+function inputCheckByMask(elem) {
+  if (elem.dataset.mask === undefined) {
+    return;
+  }
+  const mask = elem.dataset.mask;
+  const value = elem.value;
+
+  const literalPattern = /[9*]/;
+  const numberPattern = /[0-9]/;
+
+  let newValue = '';
+  const maskLength = mask.length;
+  let valueIndex = 0;
+  let maskIndex = 0;
+
+  while (maskIndex < maskLength) {
+    if (maskIndex >= value.length) break;
+    if (
+      mask[maskIndex] === '9' &&
+      value[valueIndex].match(numberPattern) === null
+    )
+      break;
+
+    while (mask[maskIndex].match(literalPattern) === null) {
+      if (value[valueIndex] === mask[maskIndex]) break;
+      newValue += mask[maskIndex++];
+    }
+    newValue += value[valueIndex++];
+    maskIndex++;
+  }
+
+  elem.value = newValue;
 }
 
 function markupFields(data) {
@@ -96,4 +161,4 @@ function markupFields(data) {
   });
 }
 
-export default markupForm;
+export default { markupForm, inputCheckByMask };
