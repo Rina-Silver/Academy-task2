@@ -9,14 +9,15 @@ function markupForm(data) {
     fileNameRef.textContent = formName.replace(formName.charAt(0), firstLetter);
   }
   if (data.fields) {
-    markupFields(data.fields);
+    markupFeatures(data.fields);
   }
-  //   if (data.references) {
-  //     markupFields(data.references);
-  //   }
+  if (data.references) {
+    //markupFeatures(data.references);
+  }
 }
 
 function typeChecked({ label, input }) {
+  console.log();
   let maskedTypeText = false;
   let attr = [];
   if (input.required) {
@@ -37,7 +38,9 @@ function typeChecked({ label, input }) {
     attr.push(`multiple`);
   }
   if (input.filetype) {
-    attr.push(`accept=".${input.filetype.join(', .')}"`);
+    attr.push(`accept = ".${input.filetype.join(', .')}"`);
+  } else if (input.type === 'file') {
+    attr.push(`accept = '.png, .jpg, .jpeg'`);
   }
   attr = attr.join(' ');
 
@@ -56,6 +59,7 @@ function typeChecked({ label, input }) {
       <input id="checkInp" type="${input.type}" class="form-check-input" ${attr}>
       <label for="checkInp" class="form-check-label">${label}
       </div>`;
+
       break;
     case 'textarea':
       markup = `<div class="form-floating mb-3">
@@ -66,9 +70,8 @@ function typeChecked({ label, input }) {
     case 'file':
       markup = `<div class="form-label mb-3">
         <label class="form-label">${label}
-        <input type="${input.type}" class="form-control" ${attr}></label>
+        <input type="${input.type}" class="form-control" ${attr} onchange="previewImg(this)"></label>
       </div>`;
-
       break;
 
     case 'number':
@@ -121,44 +124,10 @@ function typeChecked({ label, input }) {
   return markup;
 }
 
-function inputCheckByMask(elem) {
-  if (elem.dataset.mask === undefined) {
-    return;
-  }
-  const mask = elem.dataset.mask;
-  const value = elem.value;
-
-  const literalPattern = /[9*]/;
-  const numberPattern = /[0-9]/;
-
-  let newValue = '';
-  const maskLength = mask.length;
-  let valueIndex = 0;
-  let maskIndex = 0;
-
-  while (maskIndex < maskLength) {
-    if (maskIndex >= value.length) break;
-    if (
-      mask[maskIndex] === '9' &&
-      value[valueIndex].match(numberPattern) === null
-    )
-      break;
-
-    while (mask[maskIndex].match(literalPattern) === null) {
-      if (value[valueIndex] === mask[maskIndex]) break;
-      newValue += mask[maskIndex++];
-    }
-    newValue += value[valueIndex++];
-    maskIndex++;
-  }
-
-  elem.value = newValue;
-}
-
-function markupFields(data) {
+function markupFeatures(data) {
   data.map(el => {
     formEl.insertAdjacentHTML('beforeend', typeChecked(el));
   });
 }
 
-export default { markupForm, inputCheckByMask };
+export default markupForm;

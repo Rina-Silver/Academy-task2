@@ -48,6 +48,8 @@ label {
 .custom-checkbox:checked + .form-check-label {
   border: 3px solid blue;
 }
+.preview {
+}
 
 .custom-file-input:lang(en) ~ .custom-file-label::after {
   content: 'Загрузить';
