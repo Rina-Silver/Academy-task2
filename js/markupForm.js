@@ -1,5 +1,5 @@
 import refs from './refs.js';
-const { fileNameRef, formContainerRef } = refs;
+const { fileNameRef, formContainerRef, formEl } = refs;
 function markupForm(data) {
   if (data.name) {
     const firstLetter = data.name.charAt(0).toUpperCase();
@@ -12,20 +12,15 @@ function markupForm(data) {
 }
 function markupFields(data) {
   data.map(el =>
-    Object.entries(el).forEach(([key, value]) => {
+    Object.values(el).forEach(([value]) => {
       let markup = '';
-      if (value.isArray()) {
-        console.log(value);
-        Object.entries(value).forEach(([key, value]) =>
-          console.log(key, value),
-        );
-      } else {
-        markup = `<form class="form-floating">
+
+      markup = `<div class="form-floating mb-3">
         <label for="floatingInputValue">${value}</label>
-        <input type="" class="form-control" id="floatingInputValue" placeholder="" value="">
-</form>`;
-      }
-      formContainerRef.insertAdjacentHTML('beforeend', markup);
+        <input type="text" class="form-control" id="floatingInputValue" placeholder="" value="">
+</div>`;
+
+      formEl.insertAdjacentHTML('beforeend', markup);
     }),
   );
 }

@@ -33,10 +33,14 @@ function parseJSON(data) {
       'afterend',
       '<div class="alert alert-danger">Загрузите файл в формате JSON</div>',
     );
+    setTimeout(function () {
+      inputUploadGr.nextSibling.classList.add('visually-hidden');
+    }, 2000);
   }
 }
 
 resetBtnEl.addEventListener('click', () => {
   inputUploadGr.classList.remove('visually-hidden');
   formContainerRef.classList.add('visually-hidden');
+  formContainerRef.innerHTML = '';
 });
