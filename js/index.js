@@ -1,7 +1,8 @@
 import refs from './refs.js';
 import markupForm from './markupForm.js';
 
-const { inputUploadEl, inputUploadGr, formContainerRef, resetBtnEl } = refs;
+const { inputUploadEl, inputUploadGr, formContainerRef, resetBtnEl, formEl } =
+  refs;
 
 inputUploadEl.addEventListener('change', readFile);
 
@@ -29,6 +30,7 @@ function parseJSON(data) {
     formContainerRef.classList.remove('visually-hidden');
     markupForm(result);
   } catch (error) {
+    console.log(error);
     inputUploadGr.insertAdjacentHTML(
       'afterend',
       '<div class="alert alert-danger">Загрузите файл в формате JSON</div>',
@@ -42,5 +44,5 @@ function parseJSON(data) {
 resetBtnEl.addEventListener('click', () => {
   inputUploadGr.classList.remove('visually-hidden');
   formContainerRef.classList.add('visually-hidden');
-  formContainerRef.innerHTML = '';
+  formEl.innerHTML = '';
 });
