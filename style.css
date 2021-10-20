@@ -49,6 +49,12 @@ label {
   border: 3px solid blue;
 }
 .preview {
+  margin-top: 15px;
+  width: 20%;
+  height: auto;
+}
+.refs-container {
+  text-align: center;
 }
 
 .custom-file-input:lang(en) ~ .custom-file-label::after {

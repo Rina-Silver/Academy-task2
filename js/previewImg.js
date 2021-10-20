@@ -1,6 +1,6 @@
 function previewImg(elem) {
   let oldPreviewContainer =
-    document.getElementsByClassName('preview-container');
+    elem.parentElement.getElementsByClassName('preview-container');
   while (oldPreviewContainer.length > 0) {
     oldPreviewContainer[0].parentNode.removeChild(oldPreviewContainer[0]);
   }
